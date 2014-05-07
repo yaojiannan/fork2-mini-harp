@@ -14,10 +14,9 @@ module.exports = function(dir){
   		request.url = "/index.html";
   	}
   	next();
-  })
-  app.use(serveStatic(dir));
+  });
 
-  app.use(function(request,response,next) {
+  app.use(function(request, response, next) {
   	extname = path.extname(request.url);
   	if (extname == '.less' || extname == '.jade') {
   		response.statusCode = 404;
@@ -25,9 +24,10 @@ module.exports = function(dir){
   	} else {
   		next();
   	}
-  })
-  
+  });
   app.use(jade);
   app.use(less);
+
+  app.use(serveStatic(dir));
   return app;
-}
+};
